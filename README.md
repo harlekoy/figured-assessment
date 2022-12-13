@@ -38,6 +38,10 @@ I have prepared a command to display the inventory list in the console. You can 
 ```bash
 php artisan inventory:list
 ```
+In action 🎬
+
+![lYNnE2OHuS](https://user-images.githubusercontent.com/10015302/207359558-7d3d7cab-5091-4102-bfdf-ed5b54d579cc.gif)
+
 
 ## Add to inventory
 As an admin, you can run this command to add an entry to the inventory.
@@ -52,8 +56,18 @@ php artisan inventory:add 10 5
 php artisan inventory:add 10 --type=application
 ```
 
+In action 🎬
+
+![ECiThorHyE](https://user-images.githubusercontent.com/10015302/207360212-f0c7a210-0f7e-4479-93a2-0fba6cabbcba.gif)
+
+
 ## UI/UX
 Visit the http://localhost:3000 on your browser.
+
+In action 🎬
+
+![7SzS1ioIgS](https://user-images.githubusercontent.com/10015302/207361908-0928e52f-1394-4f05-b9a3-2974838508dc.gif)
+
 
 ## Credits
 - [Harlequin Doyon](https://github.com/harlekoy)
