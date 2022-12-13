@@ -20,7 +20,12 @@ class ApplyUnitsControllerTest extends TestCase
 
         $response = $this->json('POST', route('units.apply'), compact('quantity'));
 
-        $response->assertNoContent();
+        $response->assertOk();
+        $response->assertJsonStructure([
+            'data' => [
+                '*' => ['id', 'price', 'created_at'],
+            ]
+        ]);
 
         $this->assertDatabaseHas('inventories', [
             'quantity' => -$quantity,
