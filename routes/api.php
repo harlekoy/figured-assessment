@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ApplyUnitsController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('apply-units', ApplyUnitsController::class)->name('units.apply');
+Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
+    return $request->user();
+});
