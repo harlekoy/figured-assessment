@@ -68,6 +68,12 @@ In action 🎬
 
 ![7SzS1ioIgS](https://user-images.githubusercontent.com/10015302/207361908-0928e52f-1394-4f05-b9a3-2974838508dc.gif)
 
+## Testing
+In the terminal, you can run `php artisan test`.
+
+In action 🎬
+
+![xwMbpq5Tcc](https://user-images.githubusercontent.com/10015302/207363827-cc27e3f1-091b-4c87-90a9-f2a22132e59d.gif)
 
 ## Credits
 - [Harlequin Doyon](https://github.com/harlekoy)
