@@ -33,7 +33,7 @@ class FillInInventory extends Seeder
         return [
             ['date' => '2020-06-05', 'quantity' => 10, 'unit_price' => 5],
             ['date' => '2020-06-07', 'quantity' => 30, 'unit_price' => 4.5],
-            ['date' => '2020-06-08', 'quantity' => 20, '--type' => Inventory::TYPE_APPLICATION],
+            ['date' => '2020-06-08', 'quantity' => 5, '--type' => Inventory::TYPE_APPLICATION],
         ];
     }
 }

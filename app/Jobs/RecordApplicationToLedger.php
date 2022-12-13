@@ -35,7 +35,7 @@ class RecordApplicationToLedger implements ShouldQueue
      */
     public function handle()
     {
-        $date = $this->items->first()->created_at;
+        $date = $this->items->first()->applied_at;
 
         $inventory = Inventory::forceCreate([
             'type'       => Inventory::TYPE_APPLICATION,

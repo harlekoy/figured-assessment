@@ -24,7 +24,7 @@ class ApplyUnitsRequest extends FormRequest
         // to the database and the possibility that the items won't be
         // available next fetch.
         $this->items = Item::available($this->quantity)->get();
-        ray($this->items->count(), $this->all());
+
         if ($this->items->count() != $this->quantity) {
             return Response::deny('Quantity to be applied exceeds the quantity on hand.');
         }

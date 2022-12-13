@@ -15,6 +15,10 @@ export default function () {
     state.items = response.data
   }
 
+  const clear = () => {
+    state.items = []
+  }
+
   const total = computed(() => {
     return sumBy(state.items, 'price')
   })
@@ -27,6 +31,7 @@ export default function () {
     ...toRefs(state),
     apply,
     total,
-    summary
+    summary,
+    clear
   }
 }

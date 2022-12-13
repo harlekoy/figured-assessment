@@ -1,4 +1,5 @@
 <script setup>
+  const { apply, clear } = useItems()
   const quantity = ref(null)
   const error = ref('')
   const loading = ref(false)
@@ -8,8 +9,10 @@
         error.value = ''
         loading.value = true
 
-        await useItems().apply(quantity.value)
+        await apply(quantity.value)
+        quantity.value = null
     } catch ({ response }) {
+        clear()
         error.value = response.data.message
     }
 
@@ -37,7 +40,9 @@
           </div>
 
           <div>
-            <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-slate-600 py-2 px-4 text-sm font-bold text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 uppercase tracking-widest">Apply</button>
+            <button type="submit" class="flex w-full justify-center rounded-md border border-transparent bg-slate-600 py-2 px-4 text-sm font-bold text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 uppercase tracking-widest disabled:bg-slate-500" :disabled="loading">
+            <Loader v-if="loading" /> Apply
+          </button>
           </div>
         </form>
       </div>
