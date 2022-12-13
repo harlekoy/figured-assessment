@@ -13,7 +13,7 @@ class AddToInventory extends Command
      *
      * @var string
      */
-    protected $signature = 'app:add-inventory {quantity} {unit_price?} {--type=purchase}';
+    protected $signature = 'inventory:add {quantity} {unit_price?} {--type=purchase}';
 
     /**
      * The console command description.
