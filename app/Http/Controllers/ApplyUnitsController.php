@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ApplyUnitsRequest;
+use App\Http\Resources\ItemResource;
 use App\Jobs\RecordApplicationToLedger;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -20,7 +21,9 @@ class ApplyUnitsController extends Controller
         try {
             DB::beginTransaction();
 
-            foreach ($request->items as $item) {
+            $items = $request->items;
+
+            foreach ($items as $item) {
                 $item->update(['applied_at' => now()]);
             }
 
@@ -30,12 +33,12 @@ class ApplyUnitsController extends Controller
 
             DB::commit();
 
-            return response()->noContent();
+            return ItemResource::collection($items);
         } catch (Exception $e) {
             DB::rollback();
 
             return response()->json([
-                'error' => 'Something went wrong, please try again later.',
+                'message' => 'Something went wrong, please try again later.',
             ], 400);
         }
     }
