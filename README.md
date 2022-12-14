@@ -13,6 +13,9 @@ composer install
 # Copy ENV example file to run your own local setup
 cp .env.example .env
 
+# Generate your local encryption key
+php artisan key:generate
+
 # Make sure to create your local database `figured` before running the migration command.
 # It will seed the database on some inventories
 php artisan migrate:fresh --seed
@@ -23,7 +26,7 @@ php artisan serve
 ```
 
 ### Frontend
-The frontend is running on Nuxt 3, TailwindCSS, and Axios. Run the following command below to setup.
+The frontend is running on Nuxt 3, TailwindCSS, and Axios. Run the following command below on a separate terminal window to setup.
 ```bash
 cd ./frontend
 
@@ -71,7 +74,11 @@ In action 🎬
 
 
 ## UI/UX
-Visit the http://localhost:3000 on your browser.
+Visit the http://localhost:3000 on your browser. If you are running on a different port, make sure to update your Laravel ENV `FRONTEND_URL` to point on the correct URL to CORS issues. Example shown below:
+
+```env
+FRONTEND_URL=http://localhost:3001
+```
 
 In action 🎬
 
