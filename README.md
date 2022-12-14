@@ -3,10 +3,17 @@
 ## How to setup
 
 ### Laravel
-Clone this repository and run the following command below
+Clone this repository and run the following command below:
 ```bash
+cd ./figured-assessment
+
+# Install Laravel dependencies and packages
 composer install
 
+# Copy ENV example file to run your own local setup
+cp .env.example .env
+
+# Make sure to create your local database `figured` before running the migration command.
 # It will seed the database on some inventories
 php artisan migrate:fresh --seed
 
@@ -16,7 +23,7 @@ php artisan serve
 ```
 
 ### Frontend
-The frontend is running on Nuxt 3, TailwindCSS, and Axios. Run the following script below to setup.
+The frontend is running on Nuxt 3, TailwindCSS, and Axios. Run the following command below to setup.
 ```bash
 cd ./frontend
 
@@ -28,7 +35,7 @@ yarn install
 
 # You'll need to copy the ENV to point the API URL to the
 # port you get after running `php artisan serve`
-cp .env.testing.example .env
+cp .env.example .env
 
 # Usually you'll be serve on http://localhost:3000
 yarn dev
