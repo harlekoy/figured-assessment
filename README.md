@@ -18,6 +18,8 @@ php artisan serve
 ### Frontend
 The frontend is running on Nuxt 3, TailwindCSS, and Axios. Run the following script below to setup.
 ```bash
+cd ./frontend
+
 # Nuxt 3 should be run on Node v16
 nvm use 16
 
