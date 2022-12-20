@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ApplyUnitsRequest;
 use App\Http\Resources\ItemResource;
 use App\Jobs\RecordApplicationToLedger;
+use App\Models\Item;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -23,9 +24,7 @@ class ApplyUnitsController extends Controller
 
             $items = $request->items;
 
-            foreach ($items as $item) {
-                $item->update(['applied_at' => now()]);
-            }
+            Item::whereIn('id', $items->pluck('id'))->update(['applied_at' => now()]);
 
             // Recording to the ledger for history purposes can wait,
             // so let's move this action to background processing.

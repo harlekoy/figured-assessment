@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Inventory;
 use App\Models\Item;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class AddToInventory extends Command
 {
@@ -31,15 +32,27 @@ class AddToInventory extends Command
     {
         $quantity = $this->argument('quantity');
 
-        $items = $this->getTypeItems($quantity);
+        try {
+            DB::beginTransaction();
 
-        $inventory = Inventory::create([
-            'type'       => $this->option('type'),
-            'quantity'   => $quantity,
-            'unit_price' => $this->argument('unit_price'),
-        ]);
+            $items = $this->getTypeItems($quantity);
 
-        $inventory->items()->attach($items->pluck('id'));
+            $inventory = Inventory::create([
+                'type'       => $this->option('type'),
+                'quantity'   => $quantity,
+                'unit_price' => $this->argument('unit_price'),
+            ]);
+
+            $inventory->items()->attach($items->pluck('id'));
+
+            $this->info('Added.');
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+
+            throw $e;
+        }
 
         return Command::SUCCESS;
     }

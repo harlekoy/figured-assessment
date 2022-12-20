@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 
 class RecordApplicationToLedger implements ShouldQueue
 {
@@ -35,15 +36,25 @@ class RecordApplicationToLedger implements ShouldQueue
      */
     public function handle()
     {
-        $date = $this->items->first()->applied_at;
+        try {
+            DB::beginTransaction();
 
-        $inventory = Inventory::forceCreate([
-            'type'       => Inventory::TYPE_APPLICATION,
-            'quantity'   => $this->quantity,
-            'updated_at' => $date,
-            'created_at' => $date,
-        ]);
+            $date = $this->items->first()->applied_at;
 
-        $inventory->items()->attach($this->items);
+            $inventory = Inventory::forceCreate([
+                'type'       => Inventory::TYPE_APPLICATION,
+                'quantity'   => $this->quantity,
+                'updated_at' => $date,
+                'created_at' => $date,
+            ]);
+
+            $inventory->items()->attach($this->items);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+
+            throw $e;
+        }
     }
 }
