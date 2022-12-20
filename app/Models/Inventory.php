@@ -49,6 +49,5 @@ class Inventory extends Model
     {
         return $this->belongsToMany(Item::class, 'inventory_items')
             ->using(InventoryItem::class);
-            ;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Inventory;
 use App\Models\Item;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class ListInventory extends Command
 {
@@ -35,12 +36,14 @@ class ListInventory extends Command
         $this->table(
             ['ID', 'Type', 'Quantity', 'Unit Price', 'Date Created'],
             $inventories->map(function ($inventory) {
+                $date = $inventory->created_at->diffForHumans();
+
                 return [
                     $inventory->id,
                     $inventory->type,
                     $inventory->quantity,
                     $inventory->unit_price,
-                    $inventory->created_at->diffForHumans(),
+                    Str::contains($date, 'year') ? $inventory->created_at->toFormattedDateString() : $date,
                 ];
             })
         );

@@ -30,10 +30,16 @@ class FillInInventory extends Seeder
      */
     public function data(): array
     {
-        return [
-            ['date' => '2020-06-05', 'quantity' => 10, 'unit_price' => 5],
-            ['date' => '2020-06-07', 'quantity' => 30, 'unit_price' => 4.5],
-            ['date' => '2020-06-08', 'quantity' => 5, '--type' => Inventory::TYPE_APPLICATION],
-        ];
+        $data = array_map('str_getcsv', file('database/inventory.csv'));
+        $headers = array_shift($data);
+
+        return collect($data)->map(function ($item) {
+            return [
+                'date'       => Carbon::createFromFormat('d/m/Y', $item[0])->startOfDay(),
+                'quantity'   => $item[2],
+                'unit_price' => $item[3] ?: null,
+                '--type'     => strtolower($item[1]),
+            ];
+        })->all();
     }
 }
