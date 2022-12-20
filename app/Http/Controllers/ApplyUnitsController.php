@@ -24,10 +24,13 @@ class ApplyUnitsController extends Controller
 
             $items = $request->items;
 
-            Item::whereIn('id', $items->pluck('id'))->update(['applied_at' => now()]);
+            foreach ($items as $item) {
+                $item->update(['applied_at' => now()]);
+            }
 
-            // Recording to the ledger for history purposes can wait,
-            // so let's move this action to background processing.
+            // In order to improve efficiency, let's move the action of recording the ledger
+            // for historical purposes to background processing. This way, it can be
+            // completed without holding up other processes.
             RecordApplicationToLedger::dispatch($request->items, $request->quantity);
 
             DB::commit();
