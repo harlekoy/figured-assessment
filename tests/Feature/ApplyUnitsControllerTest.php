@@ -56,7 +56,7 @@ class ApplyUnitsControllerTest extends TestCase
 
         $response = $this->json('POST', route('units.apply'), compact('quantity'));
 
-        $response->assertForbidden();
+        $response->assertUnprocessable();
         $response->assertJson([
             'message' => 'Quantity to be applied exceeds the quantity on hand.',
         ]);

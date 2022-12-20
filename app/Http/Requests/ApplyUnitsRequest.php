@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Models\Item;
-use Illuminate\Auth\Access\Response;
+use Illuminate\Auth\Access\Response as Access;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Response;
 
 class ApplyUnitsRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class ApplyUnitsRequest extends FormRequest
         $this->items = Item::available($this->quantity)->get();
 
         if ($this->items->count() != $this->quantity) {
-            return Response::deny('Quantity to be applied exceeds the quantity on hand.');
+            return Access::denyWithStatus(Response::HTTP_UNPROCESSABLE_ENTITY, 'Quantity to be applied exceeds the quantity on hand.');
         }
 
         return true;
